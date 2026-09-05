@@ -16,7 +16,8 @@ builder.Services.AddHttpClient<IMatchaScraperService, MatchaScraperService>(clie
     client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("ja-JP, zh-TW;q=0.9, en-US;q=0.8");
 
 });
-
+//註冊mailService
+builder.Services.AddScoped<IEmailService, GmailEmailService>();
 
 builder.Services.AddScoped<IStockMonitorService, StockMonitorService>();
 
