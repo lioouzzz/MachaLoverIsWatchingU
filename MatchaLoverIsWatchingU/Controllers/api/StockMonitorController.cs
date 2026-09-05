@@ -17,17 +17,34 @@ public class StockMonitorController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetStockMonitor()
     {
-        var result = await _stockMonitorService.CheckStockAsync();
 
-        if (!result)
+        try
         {
-            return NotFound();
+            var result = await _stockMonitorService.CheckStockAsync();
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Message = "抓取抹茶監控資料成功",
+                Data = result
+            });
         }
-        return Ok(new
+        catch (Exception)
         {
-            Message = "抓取抹茶監控資料成功",
-            Data = result
-        });
+            return StatusCode(500, new
+            {
+                Message = "抓取抹茶監控資料失敗"
+            });
+        }
+
+
+
+
+
     }
 
 }
